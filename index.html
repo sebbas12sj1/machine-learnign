@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Machine Learning</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 5rem auto 0;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .code-editor {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+
+        .code-editor pre {
+            margin: 0;
+        }
+
+        .code-comment {
+            color: #75715e;
+        }
+
+        .code-keyword {
+            color: #66d9ef;
+        }
+
+        .code-string {
+            color: #e6db74;
+        }
+
+        .chart-container {
+            text-align: center;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Guía Completa de Machine Learning</h1>
+    </header>
+    
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Machine Learning</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#introduccion">Introducción</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFundamentos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fundamentos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownFundamentos">
+                        <a class="dropdown-item" href="#tipos-aprendizaje">Tipos de Aprendizaje</a>
+                        <a class="dropdown-item" href="#datasets">Datasets</a>
+                        <a class="dropdown-item" href="#features">Features</a>
+                        <a class="dropdown-item" href="#evaluacion">Evaluación</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAlgoritmos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Algoritmos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownAlgoritmos">
+                        <a class="dropdown-item" href="#regresion">Regresión</a>
+                        <a class="dropdown-item" href="#clasificacion">Clasificación</a>
+                        <a class="dropdown-item" href="#clustering">Clustering</a>
+                        <a class="dropdown-item" href="#redes-neuronales">Redes Neuronales</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProyectos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Proyectos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownProyectos">
+                        <a class="dropdown-item" href="#proyecto-iris">Clasificación de Flores Iris</a>
+                        <a class="dropdown-item" href="#proyecto-casas">Predicción de Precios de Casas</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#avanzado">Nivel Avanzado</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <section id="introduccion">
+            <h2>Introducción</h2>
+            <p>El Machine Learning es un campo de la inteligencia artificial que permite a las máquinas aprender a partir de datos sin ser explícitamente programadas para ello. Utiliza algoritmos que identifican patrones en los datos y realizan predicciones basadas en esos patrones. Las aplicaciones del machine learning son amplias, incluyendo la detección de fraudes, el reconocimiento de voz, las recomendaciones de productos, y muchas más.</p>
+        </section>
+
+        <section id="fundamentos">
+            <h2>Fundamentos</h2>
+            <section id="tipos-aprendizaje">
+                <h3>Tipos de Aprendizaje</h3>
+                <p>El Machine Learning se puede dividir en diferentes tipos de aprendizaje:</p>
+                <ul>
+                    <li><strong>Aprendizaje Supervisado:</strong> El modelo se entrena con datos etiquetados. Ejemplo: Clasificación y regresión.</li>
+                    <li><strong>Aprendizaje No Supervisado:</strong> El modelo busca patrones en datos no etiquetados. Ejemplo: Clustering.</li>
+                    <li><strong>Aprendizaje Semi-Supervisado:</strong> Combina datos etiquetados y no etiquetados para mejorar el aprendizaje.</li>
+                    <li><strong>Aprendizaje por Refuerzo:</strong> El modelo aprende a través de ensayo y error, recibiendo recompensas o penalizaciones. Ejemplo: Juegos de video y robótica.</li>
+                </ul>
+                <div class="chart-container">
+                    <img src="https://miro.medium.com/max/1200/1*Z4Y3-cqotK3GxG8gSByX6g.png" alt="Tipos de Aprendizaje">
+                    <p>Figura 1: Tipos de Aprendizaje en Machine Learning.</p>
+                </div>
+            </section>
+
+            <section id="datasets">
+                <h3>Datasets</h3>
+                <p>Los datasets son conjuntos de datos utilizados para entrenar los modelos. Un buen dataset es esencial para el éxito de cualquier proyecto de machine learning. Algunos ejemplos de datasets populares son:</p>
+                <ul>
+                    <li>Conjunto de datos Iris: Utilizado para clasificación de flores.</li>
+                    <li>Conjunto de datos MNIST: Utilizado para reconocimiento de dígitos escritos a mano.</li>
+                    <li>Conjunto de datos CIFAR-10: Utilizado para clasificación de imágenes.</li>
+                </ul>
+            </section>
+
+            <section id="features">
+                <h3>Features</h3>
+                <p>Las features son las variables o características que se utilizan para hacer predicciones. La selección adecuada de features es crucial para el rendimiento del modelo. Ejemplos de features incluyen:</p>
+                <ul>
+                    <li>Altura, peso, edad en un modelo de predicción de salud.</li>
+                    <li>Número de habitaciones, tamaño en pies cuadrados en un modelo de predicción de precios de casas.</li>
+                </ul>
+            </section>
+
+            <section id="evaluacion">
+                <h3>Evaluación</h3>
+                <p>La evaluación del rendimiento de un modelo de machine learning se realiza utilizando diversas métricas. Algunas de las más comunes son:</p>
+                <ul>
+                    <li><strong>Precisión:</strong> Proporción de predicciones correctas sobre el total de predicciones.</li>
+                    <li><strong>Recall:</strong> Proporción de verdaderos positivos identificados sobre el total de positivos reales.</li>
+                    <li><strong>F1-score:</strong> Media armónica de la precisión y el recall.</li>
+                    <li><strong>ROC-AUC:</strong> Área bajo la curva ROC, que mide la capacidad del modelo para distinguir entre clases.</li>
+                </ul>
+            </section>
+        </section>
+
+        <section id="algoritmos">
+            <h2>Algoritmos</h2>
+            <section id="regresion">
+                <h3>Regresión</h3>
+                <p>La regresión es un tipo de algoritmo de machine learning utilizado para predecir valores continuos. Ejemplos de algoritmos de regresión incluyen:</p>
+                <ul>
+                    <li><strong>Regresión Lineal:</strong> Utiliza una línea recta para modelar la relación entre las variables.</li>
+                    <li><strong>Regresión Polinómica:</strong> Utiliza una curva para modelar la relación entre las variables.</li>
+                </ul>
+            </section>
+
+            <section id="clasificacion">
+                <h3>Clasificación</h3>
+                <p>La clasificación es un tipo de algoritmo de machine learning utilizado para predecir etiquetas discretas. Ejemplos de algoritmos de clasificación incluyen:</p>
+                <ul>
+                    <li><strong>Árboles de Decisión:</strong> Utilizan una estructura de árbol para tomar decisiones basadas en las features.</li>
+                    <li><strong>Máquinas de Vectores de Soporte (SVM):</strong> Encuentran el hiperplano que mejor separa las clases en los datos.</li>
+                </ul>
+            </section>
+
+            <section id="clustering">
+                <h3>Clustering</h3>
+                <p>El clustering es un tipo de algoritmo de machine learning utilizado para agrupar datos no etiquetados. Ejemplos de algoritmos de clustering incluyen:</p>
+                <ul>
+                    <li><strong>K-means:</strong> Agrupa los datos en K clusters basados en la similitud de las features.</li>
+                    <li><strong>DBSCAN:</strong> Agrupa los datos en clusters basados en la densidad de puntos.</li>
+                </ul>
+            </section>
+
+            <section id="redes-neuronales">
+                <h3>Redes Neuronales</h3>
+                <p>Las redes neuronales son modelos complejos inspirados en el cerebro humano. Ejemplos de redes neuronales incluyen:</p>
+                <ul>
+                    <li><strong>Redes Neuronales Artificiales (ANN):</strong> Utilizan capas de neuronas para aprender patrones complejos en los datos.</li>
+                    <li><strong>Redes Neuronales Convolucionales (CNN):</strong> Especializadas en procesamiento de imágenes y video.</li>
+                    <li><strong>Redes Neuronales Recurrentes (RNN):</strong> Especializadas en procesamiento de secuencias de datos como texto y series temporales.</li>
+                </ul>
+                <div class="chart-container">
+                    <img src="https://miro.medium.com/max/1200/1*3o3dTZY7fHJuQEKcfrZ-GA.png" alt="Algoritmos de Machine Learning">
+                    <p>Figura 2: Diferentes Algoritmos de Machine Learning.</p>
+                </div>
+            </section>
+        </section>
+
+        <section id="proyectos">
+            <h2>Proyectos</h2>
+            <section id="proyecto-iris">
+                <h3>Clasificación de Flores Iris</h3>
+                <p>Este proyecto utiliza el conjunto de datos Iris para clasificar flores en tres especies diferentes. El conjunto de datos contiene cuatro características: longitud del sépalo, ancho del sépalo, longitud del pétalo y ancho del pétalo. El objetivo es predecir la especie de la flor basándose en estas características utilizando el algoritmo K-Nearest Neighbors (KNN).</p>
+                <div class="example-code">
+                    <pre>
+<span class="code-comment"># Importar librerías</span>
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+<span class="code-comment"># Cargar datos</span>
+data = pd.read_csv("iris.csv")
+
+<span class="code-comment"># Separar características y etiquetas</span>
+X = data.drop("species", axis=1)
+y = data["species"]
+
+<span class="code-comment"># Dividir los datos en conjunto de entrenamiento y prueba</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+<span class="code-comment"># Entrenar el modelo</span>
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit(X_train, y_train)
+
+<span class="code-comment"># Hacer predicciones</span>
+predictions = model.predict(X_test)
+
+<span class="code-comment"># Evaluar el modelo</span>
+accuracy = accuracy_score(y_test, predictions)
+print(f"Precisión: {accuracy:.2f}")
+                    </pre>
+                </div>
+            </section>
+
+            <section id="proyecto-casas">
+                <h3>Predicción de Precios de Casas</h3>
+                <p>En este proyecto, se utiliza un conjunto de datos de precios de casas para predecir el precio de una casa basada en sus características. Las características pueden incluir el tamaño de la casa, el número de habitaciones, la ubicación, etc. El objetivo es construir un modelo de regresión lineal que pueda predecir con precisión el precio de una casa nueva basada en estas características.</p>
+                <div class="example-code">
+                    <pre>
+<span class="code-comment"># Importar librerías</span>
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+<span class="code-comment"># Cargar datos</span>
+data = pd.read_csv("house_prices.csv")
+
+<span class="code-comment"># Separar características y etiquetas</span>
+X = data.drop("price", axis=1)
+y = data["price"]
+
+<span class="code-comment"># Dividir los datos en conjunto de entrenamiento y prueba</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+<span class="code-comment"># Entrenar el modelo</span>
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+<span class="code-comment"># Hacer predicciones</span>
+predictions = model.predict(X_test)
+
+<span class="code-comment"># Evaluar el modelo</span>
+mse = mean_squared_error(y_test, predictions)
+print(f"Error Cuadrático Medio: {mse:.2f}")
+                    </pre>
+                </div>
+            </section>
+        </section>
+
+        <section id="avanzado">
+            <h2>Nivel Avanzado</h2>
+            <p>En esta sección, exploraremos técnicas avanzadas y aplicaciones de machine learning:</p>
+            <ul>
+                <li><strong>Ingeniería de Features:</strong> Técnicas para crear nuevas features a partir de datos existentes para mejorar el rendimiento del modelo.</li>
+                <li><strong>Optimización de Hiperparámetros:</strong> Métodos para ajustar los parámetros del modelo para obtener el mejor rendimiento posible.</li>
+                <li><strong>Modelos Ensamblados:</strong> Combinar múltiples modelos para mejorar la precisión y robustez. Ejemplo: Random Forest, Gradient Boosting.</li>
+                <li><strong>Deep Learning:</strong> Redes neuronales profundas y técnicas avanzadas como aprendizaje por transferencia y redes adversariales generativas (GANs).</li>
+                <li><strong>Procesamiento de Lenguaje Natural (NLP):</strong> Técnicas para trabajar con datos de texto, como tokenización, embeddings y transformers.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Guía de Machine Learning</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ejemplo de funcionalidad JavaScript: Scroll suave al hacer clic en los enlaces de navegación
+            const navLinks = document.querySelectorAll('nav ul li a');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
