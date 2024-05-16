@@ -6,21 +6,50 @@
     <title>Guía de Machine Learning</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #121212;
+            color: #e0e0e0;
         }
 
-        header {
-            background-color: #4CAF50;
+        .navbar-dark .navbar-nav .nav-link {
+            color: #e0e0e0;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #4CAF50;
+        }
+
+        .navbar-dark .navbar-brand:hover {
+            color: #4CAF50;
+        }
+
+        .form-control {
+            background-color: #333;
+            border: 1px solid #555;
+            color: #e0e0e0;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            border-color: #4CAF50;
+            color: #e0e0e0;
+        }
+
+        .btn-outline-success {
+            color: #e0e0e0;
+            border-color: #4CAF50;
+        }
+
+        .btn-outline-success:hover {
             color: white;
-            padding: 1rem 0;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #4CAF50;
+            border-color: #4CAF50;
         }
 
         main {
@@ -32,19 +61,21 @@
         section {
             margin-bottom: 2rem;
             padding: 1rem;
-            background: white;
+            background: #1e1e1e;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
+            position: relative;
         }
 
-        h2 {
+        h2, h3 {
             border-bottom: 2px solid #4CAF50;
             padding-bottom: 0.5rem;
+            color: #4CAF50;
         }
 
         footer {
-            background-color: #333;
-            color: white;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
             text-align: center;
             padding: 1rem 0;
             position: relative;
@@ -59,22 +90,25 @@
             border-radius: 5px;
             font-family: 'Courier New', Courier, monospace;
             overflow-x: auto;
+            position: relative;
         }
 
         .code-editor pre {
             margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
-        .code-comment {
-            color: #75715e;
-        }
-
-        .code-keyword {
-            color: #66d9ef;
-        }
-
-        .code-string {
-            color: #e6db74;
+        .code-editor button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .chart-container {
@@ -86,13 +120,47 @@
             height: auto;
             margin: 1rem 0;
         }
+
+        .video-container {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+        }
+
+        .btn-download, .btn-translate {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            margin-right: 1rem;
+        }
+
+        .btn-download:hover, .btn-translate:hover {
+            background: #45a049;
+        }
+
+        .btn-translate {
+            background: #007bff;
+        }
+
+        .btn-translate:hover {
+            background: #0069d9;
+        }
+
+        .icon-btn {
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Guía Completa de Machine Learning</h1>
-    </header>
-    
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">Machine Learning</a>
@@ -139,8 +207,8 @@
                     <a class="nav-link" href="#avanzado">Nivel Avanzado</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+            <form class="form-inline my-2 my-lg-0" onsubmit="return searchPage()">
+                <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>
@@ -149,13 +217,34 @@
     <main>
         <section id="introduccion">
             <h2>Introducción</h2>
+            <button class="btn-download" onclick="downloadSection('introduccion')">
+                <i class="fas fa-download icon-btn"></i>
+            </button>
+            <button class="btn-translate" onclick="translateSection('introduccion')">
+                <i class="fas fa-globe icon-btn"></i>
+            </button>
             <p>El Machine Learning es un campo de la inteligencia artificial que permite a las máquinas aprender a partir de datos sin ser explícitamente programadas para ello. Utiliza algoritmos que identifican patrones en los datos y realizan predicciones basadas en esos patrones. Las aplicaciones del machine learning son amplias, incluyendo la detección de fraudes, el reconocimiento de voz, las recomendaciones de productos, y muchas más.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/ukzFI9rgwfU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </section>
 
         <section id="fundamentos">
             <h2>Fundamentos</h2>
+            <button class="btn-download" onclick="downloadSection('fundamentos')">
+                <i class="fas fa-download icon-btn"></i>
+            </button>
+            <button class="btn-translate" onclick="translateSection('fundamentos')">
+                <i class="fas fa-globe icon-btn"></i>
+            </button>
             <section id="tipos-aprendizaje">
                 <h3>Tipos de Aprendizaje</h3>
+                <button class="btn-download" onclick="downloadSection('tipos-aprendizaje')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('tipos-aprendizaje')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>El Machine Learning se puede dividir en diferentes tipos de aprendizaje:</p>
                 <ul>
                     <li><strong>Aprendizaje Supervisado:</strong> El modelo se entrena con datos etiquetados. Ejemplo: Clasificación y regresión.</li>
@@ -167,20 +256,38 @@
                     <img src="https://miro.medium.com/max/1200/1*Z4Y3-cqotK3GxG8gSByX6g.png" alt="Tipos de Aprendizaje">
                     <p>Figura 1: Tipos de Aprendizaje en Machine Learning.</p>
                 </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/GwIo3gDZCVQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </section>
 
             <section id="datasets">
                 <h3>Datasets</h3>
+                <button class="btn-download" onclick="downloadSection('datasets')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('datasets')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>Los datasets son conjuntos de datos utilizados para entrenar los modelos. Un buen dataset es esencial para el éxito de cualquier proyecto de machine learning. Algunos ejemplos de datasets populares son:</p>
                 <ul>
                     <li>Conjunto de datos Iris: Utilizado para clasificación de flores.</li>
                     <li>Conjunto de datos MNIST: Utilizado para reconocimiento de dígitos escritos a mano.</li>
                     <li>Conjunto de datos CIFAR-10: Utilizado para clasificación de imágenes.</li>
                 </ul>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/n4bQkIfVDE4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </section>
 
             <section id="features">
                 <h3>Features</h3>
+                <button class="btn-download" onclick="downloadSection('features')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('features')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>Las features son las variables o características que se utilizan para hacer predicciones. La selección adecuada de features es crucial para el rendimiento del modelo. Ejemplos de features incluyen:</p>
                 <ul>
                     <li>Altura, peso, edad en un modelo de predicción de salud.</li>
@@ -190,6 +297,12 @@
 
             <section id="evaluacion">
                 <h3>Evaluación</h3>
+                <button class="btn-download" onclick="downloadSection('evaluacion')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('evaluacion')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>La evaluación del rendimiento de un modelo de machine learning se realiza utilizando diversas métricas. Algunas de las más comunes son:</p>
                 <ul>
                     <li><strong>Precisión:</strong> Proporción de predicciones correctas sobre el total de predicciones.</li>
@@ -202,8 +315,20 @@
 
         <section id="algoritmos">
             <h2>Algoritmos</h2>
+            <button class="btn-download" onclick="downloadSection('algoritmos')">
+                <i class="fas fa-download icon-btn"></i>
+            </button>
+            <button class="btn-translate" onclick="translateSection('algoritmos')">
+                <i class="fas fa-globe icon-btn"></i>
+            </button>
             <section id="regresion">
                 <h3>Regresión</h3>
+                <button class="btn-download" onclick="downloadSection('regresion')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('regresion')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>La regresión es un tipo de algoritmo de machine learning utilizado para predecir valores continuos. Ejemplos de algoritmos de regresión incluyen:</p>
                 <ul>
                     <li><strong>Regresión Lineal:</strong> Utiliza una línea recta para modelar la relación entre las variables.</li>
@@ -213,6 +338,12 @@
 
             <section id="clasificacion">
                 <h3>Clasificación</h3>
+                <button class="btn-download" onclick="downloadSection('clasificacion')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('clasificacion')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>La clasificación es un tipo de algoritmo de machine learning utilizado para predecir etiquetas discretas. Ejemplos de algoritmos de clasificación incluyen:</p>
                 <ul>
                     <li><strong>Árboles de Decisión:</strong> Utilizan una estructura de árbol para tomar decisiones basadas en las features.</li>
@@ -222,6 +353,12 @@
 
             <section id="clustering">
                 <h3>Clustering</h3>
+                <button class="btn-download" onclick="downloadSection('clustering')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('clustering')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>El clustering es un tipo de algoritmo de machine learning utilizado para agrupar datos no etiquetados. Ejemplos de algoritmos de clustering incluyen:</p>
                 <ul>
                     <li><strong>K-means:</strong> Agrupa los datos en K clusters basados en la similitud de las features.</li>
@@ -231,6 +368,12 @@
 
             <section id="redes-neuronales">
                 <h3>Redes Neuronales</h3>
+                <button class="btn-download" onclick="downloadSection('redes-neuronales')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('redes-neuronales')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>Las redes neuronales son modelos complejos inspirados en el cerebro humano. Ejemplos de redes neuronales incluyen:</p>
                 <ul>
                     <li><strong>Redes Neuronales Artificiales (ANN):</strong> Utilizan capas de neuronas para aprender patrones complejos en los datos.</li>
@@ -241,29 +384,44 @@
                     <img src="https://miro.medium.com/max/1200/1*3o3dTZY7fHJuQEKcfrZ-GA.png" alt="Algoritmos de Machine Learning">
                     <p>Figura 2: Diferentes Algoritmos de Machine Learning.</p>
                 </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/aircAruvnKk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </section>
         </section>
 
         <section id="proyectos">
             <h2>Proyectos</h2>
+            <button class="btn-download" onclick="downloadSection('proyectos')">
+                <i class="fas fa-download icon-btn"></i>
+            </button>
+            <button class="btn-translate" onclick="translateSection('proyectos')">
+                <i class="fas fa-globe icon-btn"></i>
+            </button>
             <section id="proyecto-iris">
                 <h3>Clasificación de Flores Iris</h3>
+                <button class="btn-download" onclick="downloadSection('proyecto-iris')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('proyecto-iris')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>Este proyecto utiliza el conjunto de datos Iris para clasificar flores en tres especies diferentes. El conjunto de datos contiene cuatro características: longitud del sépalo, ancho del sépalo, longitud del pétalo y ancho del pétalo. El objetivo es predecir la especie de la flor basándose en estas características utilizando el algoritmo K-Nearest Neighbors (KNN).</p>
-                <div class="example-code">
+                <div class="code-editor">
                     <pre>
 <span class="code-comment"># Importar librerías</span>
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
+<span class="code-keyword">from</span> sklearn.neighbors <span class="code-keyword">import</span> KNeighborsClassifier
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> accuracy_score
 
 <span class="code-comment"># Cargar datos</span>
-data = pd.read_csv("iris.csv")
+data = pd.read_csv(<span class="code-string">"iris.csv"</span>)
 
 <span class="code-comment"># Separar características y etiquetas</span>
-X = data.drop("species", axis=1)
-y = data["species"]
+X = data.drop(<span class="code-string">"species"</span>, axis=1)
+y = data[<span class="code-string">"species"</span>]
 
 <span class="code-comment"># Dividir los datos en conjunto de entrenamiento y prueba</span>
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
@@ -277,29 +435,36 @@ predictions = model.predict(X_test)
 
 <span class="code-comment"># Evaluar el modelo</span>
 accuracy = accuracy_score(y_test, predictions)
-print(f"Precisión: {accuracy:.2f}")
+print(f<span class="code-string">"Precisión: {accuracy:.2f}"</span>)
                     </pre>
+                    <button onclick="copyCode(this)">Copiar</button>
                 </div>
             </section>
 
             <section id="proyecto-casas">
                 <h3>Predicción de Precios de Casas</h3>
+                <button class="btn-download" onclick="downloadSection('proyecto-casas')">
+                    <i class="fas fa-download icon-btn"></i>
+                </button>
+                <button class="btn-translate" onclick="translateSection('proyecto-casas')">
+                    <i class="fas fa-globe icon-btn"></i>
+                </button>
                 <p>En este proyecto, se utiliza un conjunto de datos de precios de casas para predecir el precio de una casa basada en sus características. Las características pueden incluir el tamaño de la casa, el número de habitaciones, la ubicación, etc. El objetivo es construir un modelo de regresión lineal que pueda predecir con precisión el precio de una casa nueva basada en estas características.</p>
-                <div class="example-code">
+                <div class="code-editor">
                     <pre>
 <span class="code-comment"># Importar librerías</span>
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
+<span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_squared_error
 
 <span class="code-comment"># Cargar datos</span>
-data = pd.read_csv("house_prices.csv")
+data = pd.read_csv(<span class="code-string">"house_prices.csv"</span>)
 
 <span class="code-comment"># Separar características y etiquetas</span>
-X = data.drop("price", axis=1)
-y = data["price"]
+X = data.drop(<span class="code-string">"price"</span>, axis=1)
+y = data[<span class="code-string">"price"</span>]
 
 <span class="code-comment"># Dividir los datos en conjunto de entrenamiento y prueba</span>
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
@@ -313,14 +478,21 @@ predictions = model.predict(X_test)
 
 <span class="code-comment"># Evaluar el modelo</span>
 mse = mean_squared_error(y_test, predictions)
-print(f"Error Cuadrático Medio: {mse:.2f}")
+print(f<span class="code-string">"Error Cuadrático Medio: {mse:.2f}"</span>)
                     </pre>
+                    <button onclick="copyCode(this)">Copiar</button>
                 </div>
             </section>
         </section>
 
         <section id="avanzado">
             <h2>Nivel Avanzado</h2>
+            <button class="btn-download" onclick="downloadSection('avanzado')">
+                <i class="fas fa-download icon-btn"></i>
+            </button>
+            <button class="btn-translate" onclick="translateSection('avanzado')">
+                <i class="fas fa-globe icon-btn"></i>
+            </button>
             <p>En esta sección, exploraremos técnicas avanzadas y aplicaciones de machine learning:</p>
             <ul>
                 <li><strong>Ingeniería de Features:</strong> Técnicas para crear nuevas features a partir de datos existentes para mejorar el rendimiento del modelo.</li>
@@ -329,6 +501,9 @@ print(f"Error Cuadrático Medio: {mse:.2f}")
                 <li><strong>Deep Learning:</strong> Redes neuronales profundas y técnicas avanzadas como aprendizaje por transferencia y redes adversariales generativas (GANs).</li>
                 <li><strong>Procesamiento de Lenguaje Natural (NLP):</strong> Técnicas para trabajar con datos de texto, como tokenización, embeddings y transformers.</li>
             </ul>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/aircAruvnKk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </section>
     </main>
 
@@ -340,25 +515,57 @@ print(f"Error Cuadrático Medio: {mse:.2f}")
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- FontAwesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+    <!-- Script for copying code and translating sections -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ejemplo de funcionalidad JavaScript: Scroll suave al hacer clic en los enlaces de navegación
-            const navLinks = document.querySelectorAll('nav ul li a');
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            button.textContent = 'Copiado';
+            setTimeout(() => {
+                button.textContent = 'Copiar';
+            }, 2000);
+        }
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
+        function downloadSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            const opt = {
+                margin: 1,
+                filename: `${sectionId}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
 
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 60,
-                        behavior: 'smooth'
-                    });
-                });
+        function translateSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            // This is a placeholder function. In a real implementation, you would replace the text
+            // with its translation, possibly using an API or a pre-defined dictionary.
+            alert('Esta función de traducción es un marcador de posición. Implementar la traducción aquí.');
+        }
+
+        function searchPage() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
             });
-        });
+            return false; // Prevent default form submission
+        }
     </script>
 </body>
 </html>
