@@ -3,378 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Gemini</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Desarrollo de Motor Gráfico 3D en C++</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #444;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1, h2 {
+            font-weight: 300;
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #444;
+        }
+        section {
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px);
+        }
+        h2 {
+            padding: 15px;
+            background: #eee;
+        }
+        .formula {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+        .arrow-down {
+            border-top: 10px solid #444;
+        }
+        .arrow-left {
+            border-right: 10px solid #444;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .terrain-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #e0e0e0;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .terrain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #a2b9bc;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Chatbot Gemini</h2>
-            <div class="model-select-container">
-                <label for="model-select">Modelo:</label>
-                <select id="model-select">
-                    <option value="gemini-pro">Gemini Pro</option>
-                    <option value="gemini-1.5-pro-latest">Gemini Advanced</option>
-                </select>
-            </div>
-            <h3 id="chat-title">Tema: General</h3>
-            <button id="menu-button">☰</button>
-            <div class="chat-controls" id="menu">
-                <button id="new-chat-button">Nuevo Chat</button>
-                <button id="toggle-theme-button">Modo Oscuro</button>
-                <span>Versión 1.0.0.ad</span>
-            </div>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Mensajes del chatbot y del usuario se mostrarán aquí -->
-        </div>
-        <div class="chat-input">
-            <textarea id="user-input" placeholder="Escribe tu mensaje..."></textarea>
-            <button id="send-button">Enviar</button>
-        </div>
-    </div>
+    <header>
+        <h1>Desarrollo de Motor Gráfico 3D en C++</h1>
+    </header>
 
-    <script type="importmap">
-      {
-        "imports": {
-          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+    <main>
+        <section id="intro">
+            <h2>Introducción</h2>
+            <p>Este tutorial cubre los aspectos esenciales para construir un motor gráfico 3D desde cero usando C++. Cubriremos desde los fundamentos hasta los detalles más avanzados para construir tu propio motor gráfico 3D.</p>
+        </section>
+
+        <section id="requisitos">
+            <h2>Requisitos Previos</h2>
+            <ul>
+                <li><strong>Conocimientos en C++:</strong> Debes tener una comprensión sólida de C++.</li>
+                <li><strong>Matemáticas 3D:</strong> Familiaridad con álgebra lineal y geometría.</li>
+                <li><strong>Gráficos por Computadora:</strong> Conocimientos básicos de gráficos por computadora y renderizado.</li>
+            </ul>
+        </section>
+
+        <section id="pasos">
+            <h2>Pasos para Crear el Motor</h2>
+            <ol>
+                <li><a href="#" onclick="toggleSection('configuracion')">Configuración del Entorno</a></li>
+                <div id="configuracion" class="hidden">
+                    <ul>
+                        <li>Instalar herramientas y dependencias.</li>
+                        <li>Configurar bibliotecas: OpenGL, GLFW, GLM, etc.</li>
+                    </ul>
+                </div>
+
+                <li><a href="#" onclick="toggleSection('arquitectura')">Diseño de la Arquitectura</a></li>
+                <div id="arquitectura" class="hidden">
+                    <ul>
+                        <li>Definir componentes principales: Renderer, Asset Loader, etc.</li>
+                        <li>Establecer la estructura del código y diseño modular.</li>
+                    </ul>
+                </div>
+
+                <li><a href="#" onclick="toggleSection('implementacion')">Implementación</a></li>
+                <div id="implementacion" class="hidden">
+                    <ul>
+                        <li>Desarrollar el núcleo del motor: Gestión de recursos, rendering pipeline.</li>
+                        <li>Implementar características adicionales: Física, IA, etc.</li>
+                    </ul>
+                </div>
+
+                <li><a href="#" onclick="toggleSection('optimizacion')">Optimización y Pruebas</a></li>
+                <div id="optimización" class="hidden">
+                    <ul>
+                        <li>Optimizar el rendimiento del motor.</li>
+                        <li>Añadir características avanzadas.</li>
+                    </ul>
+                </div>
+            </ol>
+        </section>
+
+        <section id="teoria">
+            <h2>Teoría y Matemáticas</h2>
+
+            <h3>Matemáticas 3D</h3>
+            <p>Las matemáticas 3D son fundamentales para el desarrollo de motores gráficos. A continuación, se describen algunos conceptos clave:</p>
+
+            <h4>Vectores</h4>
+            <p>Un vector en 3D se representa como <code>V = (x, y, z)</code>. Los vectores se utilizan para definir posiciones, direcciones y velocidades.</p>
+            <div class="formula">
+                <p>Magnitud del Vector: <code>|V| = sqrt(x² + y² + z²)</code></p>
+            </div>
+
+            <h4>Matrices</h4>
+            <p>Las matrices se utilizan para transformar vectores y objetos en 3D. Una matriz de transformación 4x4 se usa para rotaciones, escalados y traslaciones.</p>
+            <div class="formula">
+                <p>Matriz 4x4: <br>
+                <code>
+                [ m11 m12 m13 m14 ] <br>
+                [ m21 m22 m23 m24 ] <br>
+                [ m31 m32 m33 m34 ] <br>
+                [ m41 m42 m43 m44 ]
+                </code>
+                </p>
+            </div>
+
+            <h4>Transformaciones</h4>
+            <p>Las transformaciones permiten mover, rotar y escalar objetos en la escena.</p>
+            <ul>
+                <li>Transformación de Translación: <code>T(x, y, z)</code></li>
+                <li>Transformación de Rotación: <code>R(θ)</code> donde θ es el ángulo de rotación.</li>
+                <li>Transformación de Escalado: <code>S(sx, sy, sz)</code></li>
+            </ul>
+
+            <h4>Proyecciones</h4>
+            <p>Las proyecciones transforman las coordenadas 3D en coordenadas 2D para el renderizado en pantalla.</p>
+            <div class="formula">
+                <p>Proyección Perspectiva: <br>
+                <code>
+                x' = x / z <br>
+                y' = y / z
+                </code></p>
+            </div>
+
+            <h4>Interpolación</h4>
+            <p>La interpolación se usa para calcular valores entre puntos clave.</p>
+            <div class="formula">
+                <p>Interpolación Lineal: <br>
+                <code>P(t) = P1 + t * (P2 - P1)</code></p>
+            </div>
+
+            <h4>Texturización</h4>
+            <p>El mapeo de texturas es la técnica de aplicar una imagen (textura) a una superficie 3D para darle detalles.</p>
+            <div class="formula">
+                <p>Coordenadas de Textura: <code>UV = (u, v)</code></p>
+            </div>
+
+            <h4>Sistemas de Ecuaciones Diferenciales</h4>
+            <p>Las ecuaciones diferenciales son útiles para simular comportamientos dinámicos, como la física de partículas.</p>
+            <div class="formula">
+                <p>Ecuación Diferencial de Movimiento: <br>
+                <code>d²x/dt² = a(t)</code></p>
+            </div>
+
+            <h4>Técnicas de Optimización</h4>
+            <p>Las técnicas de optimización mejoran el rendimiento del motor gráfico.</p>
+            <ul>
+                <li><strong>Culling:</strong> Elimina objetos no visibles para mejorar el rendimiento.</li>
+                <li><strong>LOD (Level of Detail):</strong> Usa modelos de detalle variable según la distancia de la cámara.</li>
+                <li><strong>Batching:</strong> Agrupa objetos para reducir el número de llamadas a la API gráfica.</li>
+            </ul>
+        </section>
+
+        <section id="iluminacion">
+            <h2>Iluminación y Efectos</h2>
+
+            <h3>Iluminación</h3>
+            <p>La iluminación en gráficos 3D simula cómo la luz interactúa con los objetos en una escena.</p>
+            <ul>
+                <li><strong>Modelo de Iluminación Phong:</strong> Incluye iluminación ambiente, difusa y especular.</li>
+                <li><strong>Iluminación de Lambert:</strong> Se basa en la ley del coseno para la luz difusa.</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula de Iluminación Phong: <br>
+                <code>I = I_a * K_a + I_d * K_d * max(0, N · L) + I_s * K_s * (R · V)^n</code></p>
+            </div>
+
+            <h3>Ray Tracing</h3>
+            <p>El ray tracing simula la propagación de la luz en una escena para generar imágenes con alta calidad y realismo.</p>
+            <ul>
+                <li><strong>Rastreo de Rayos:</strong> Calcula los rayos desde la cámara y su interacción con los objetos de la escena.</li>
+                <li><strong>Reflexión:</strong> Maneja cómo los rayos rebotan en superficies.</li>
+                <li><strong>Refracción:</strong> Maneja cómo los rayos se doblan al pasar a través de materiales.</li>
+                <li><strong>Iluminación Global:</strong> Simula la difusión de la luz en toda la escena.</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula básica para el ray tracing: <br>
+                <code>R(t) = O + t * D</code></p>
+            </div>
+
+            <h3>Post-Procesamiento</h3>
+            <p>El post-procesamiento aplica efectos visuales adicionales después del renderizado inicial para mejorar la calidad visual.</p>
+            <ul>
+                <li><strong>Bloom:</strong> Simula el resplandor de áreas brillantes.</li>
+                <li><strong>Antialiasing:</strong> Suaviza bordes dentados mediante técnicas como MSAA (Multisample Anti-Aliasing).</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula básica de Bloom: <br>
+                <code>Bloom = (Blurred Bright Areas - Threshold) * Bloom Intensity</code></p>
+            </div>
+
+            <h3>Animaciones</h3>
+            <p>Las animaciones en gráficos 3D pueden ser complejas y se basan en la interpolación de estados clave.</p>
+            <ul>
+                <li><strong>Interpolación de Movimiento:</strong> Calcula la transición suave entre posiciones clave.</li>
+                <li><strong>Esqueletos:</strong> Utiliza huesos y rigging para animar modelos 3D.</li>
+            </ul>
+            <div class="formula">
+                <p>Interpolación Lineal: <br>
+                <code>P(t) = P1 + t * (P2 - P1)</code></p>
+            </div>
+
+            <h3>Sombras y Sombras Dinámicas</h3>
+            <p>Las sombras mejoran la percepción de profundidad en una escena. Las sombras pueden ser:</p>
+            <ul>
+                <li><strong>Sombras Estáticas:</strong> Precalculadas y proyectadas desde luces fijas.</li>
+                <li><strong>Sombras Dinámicas:</strong> Calculadas en tiempo real, lo que permite que se actualicen en respuesta a los movimientos de objetos y luces.</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula básica para sombras proyectadas: <br>
+                <code>S = P - L</code></p>
+            </div>
+        </section>
+
+        <section id="terrain">
+            <h2>Generación de Terreno 3D</h2>
+            <div class="terrain-container">
+                <canvas id="terrainCanvas" class="terrain"></canvas>
+            </div>
+
+            <h3>Generación de Terreno</h3>
+            <p>La generación de terrenos en 3D involucra varios pasos clave:</p>
+
+            <h4>1. Creación de la Malla del Terreno</h4>
+            <p>La malla del terreno se genera mediante la creación de una cuadrícula de vértices.</p>
+            <div class="formula">
+                <p>Coordenadas de Vértices: <br>
+                <code>(x, y, z)</code></p>
+            </div>
+
+            <h4>2. Aplicación de Texturas</h4>
+            <p>Una textura se aplica a la malla del terreno utilizando coordenadas UV.</p>
+            <div class="formula">
+                <p>Coordenadas UV: <br>
+                <code>UV = (u, v)</code></p>
+            </div>
+
+            <h4>3. Movimiento con el Ratón</h4>
+            <p>El terreno se puede mover mediante el ratón.</p>
+            <div class="formula">
+                <p>Movimiento de la Cámara: <br>
+                <code>CameraPosition = CameraPosition + MouseDelta</code></p>
+            </div>
+
+            <h3>Explicación Detallada</h3>
+            <p>Para generar un terreno en 3D, se utilizan los siguientes pasos:</p>
+            <ul>
+                <li><strong>Generación de la Malla:</strong> Crear una malla de vértices y aplicar una función de ruido.</li>
+                <li><strong>Aplicación de Textura:</strong> Utilizar coordenadas UV para mapear la textura sobre la malla.</li>
+                <li><strong>Interactividad:</strong> Permitir la navegación mediante entrada del ratón o teclado.</li>
+            </ul>
+
+            <h3>Diagrama de Generación de Terreno</h3>
+            <div class="diagram-container">
+                <div class="diagram">
+                    <div class="box box-top">Generación de Terreno</div>
+                    <div class="arrow arrow-down"></div>
+                    <div class="box box-left">Creación de Malla</div>
+                    <div class="arrow arrow-down"></div>
+                    <div class="box box-left">Aplicación de Textura</div>
+                    <div class="arrow arrow-down"></div>
+                    <div class="box box-left">Interactividad con el Ratón</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Desarrollo de Motor Gráfico 3D en C++. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleSection(id) {
+            var section = document.getElementById(id);
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
         }
-      }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script type="module">
-      import { GoogleGenerativeAI } from "@google/generative-ai";
 
-      const API_KEY = "AIzaSyBpP2kKJcOoZDEmrXPMoD_S21V-pYSUlpQ";
-      const genAI = new GoogleGenerativeAI(API_KEY);
+        // Terrain canvas example (basic setup)
+        const canvas = document.getElementById('terrainCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
 
-      let chatInstance = null;
-      let isDarkMode = false;
-      let isStopped = false;
-      let typingSpeed = 10; // Animación de escritura rápida
-      let pinnedMessage = null;
-      let replyingTo = null;
+        // Simple example to draw a grid as terrain
+        function drawTerrain() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#6c8e1e'; // Grass green
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      document.getElementById('send-button').addEventListener('click', sendMessage);
-      document.getElementById('new-chat-button').addEventListener('click', startNewChat);
-      document.getElementById('toggle-theme-button').addEventListener('click', toggleTheme);
-      document.getElementById('menu-button').addEventListener('click', toggleMenu);
-      document.getElementById('model-select').addEventListener('change', startNewChat);
+            // Example grid
+            ctx.strokeStyle = '#333';
+            for (let x = 0; x < canvas.width; x += 20) {
+                for (let y = 0; y < canvas.height; y += 20) {
+                    ctx.strokeRect(x, y, 20, 20);
+                }
+            }
+        }
 
-      async function startNewChat() {
-          chatInstance = null;
-          document.getElementById('chat-messages').innerHTML = '';
-          document.getElementById('chat-title').textContent = 'Tema: General';
-          await startChat();
-      }
-
-      async function startChat() {
-          try {
-              const selectedModel = document.getElementById('model-select').value;
-              const model = genAI.getGenerativeModel({ model: selectedModel });
-              chatInstance = model.startChat({
-                  generationConfig: {
-                      maxOutputTokens: 40960, // Aumentar significativamente el límite de tokens
-                  },
-              });
-              isStopped = false;
-          } catch (error) {
-              console.error('Error al iniciar el chat:', error);
-              addMessage('bot', 'Lo siento, ocurrió un error al iniciar el chat.');
-          }
-      }
-
-      async function sendMessage() {
-          const userInput = document.getElementById('user-input').value;
-          if (userInput.trim() === '') return;
-
-          // Actualizar el título del chat con el tema
-          const chatTitle = userInput.split(' ').slice(0, 3).join(' ') + '...';
-          document.getElementById('chat-title').textContent = `Tema: ${chatTitle}`;
-
-          addMessage('user', userInput);
-          document.getElementById('user-input').value = '';
-
-          try {
-              if (!chatInstance) await startChat();
-              const result = await chatInstance.sendMessage(userInput);
-              const response = await result.response;
-              const text = await response.text();
-
-              if (isImageRequest(userInput)) {
-                  addImageMessage('bot', userInput);
-              } else if (isCodeRequest(userInput)) {
-                  addCodeMessage('bot', text, getCodeLanguage(userInput));
-              } else if (isSummaryRequest(userInput)) {
-                  addSummaryMessage('bot', text);
-              } else {
-                  typeEffect('bot', text);
-              }
-          } catch (error) {
-              console.error('Error al enviar el mensaje:', error);
-              addMessage('bot', 'Lo siento, ocurrió un error al enviar el mensaje.');
-          }
-      }
-
-      function addMessage(sender, text) {
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('message', sender);
-
-          const messageText = document.createElement('div');
-          messageText.classList.add('text');
-          messageText.innerHTML = sender === 'user' ? `<strong>Yo:</strong> ${text}` : `<strong>Gemini:</strong> ${text}`;
-
-          if (replyingTo) {
-              const replyText = document.createElement('div');
-              replyText.classList.add('reply');
-              replyText.innerHTML = `<em>Respondiendo a:</em> ${replyingTo.textContent}`;
-              messageText.insertBefore(replyText, messageText.firstChild);
-              replyingTo = null;
-          }
-
-          messageText.addEventListener('contextmenu', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageText.addEventListener('touchstart', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageContainer.appendChild(messageText);
-          document.getElementById('chat-messages').appendChild(messageContainer);
-
-          document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-      }
-
-      function addCodeMessage(sender, text, language) {
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('message', sender);
-
-          const messageText = document.createElement('div');
-          messageText.classList.add('text');
-
-          const pre = document.createElement('pre');
-          const code = document.createElement('code');
-          code.classList.add(`language-${language}`);
-          code.textContent = text;
-
-          pre.appendChild(code);
-          messageText.appendChild(pre);
-
-          messageText.addEventListener('contextmenu', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageText.addEventListener('touchstart', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageContainer.appendChild(messageText);
-          document.getElementById('chat-messages').appendChild(messageContainer);
-
-          Prism.highlightElement(code);
-
-          document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-      }
-
-      function addSummaryMessage(sender, text) {
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('message', sender);
-
-          const messageText = document.createElement('div');
-          messageText.classList.add('text');
-          messageText.innerHTML = `<strong>Gemini (Resumen):</strong> <br><br> ${text}`;
-
-          messageText.addEventListener('contextmenu', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageText.addEventListener('touchstart', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageContainer.appendChild(messageText);
-          document.getElementById('chat-messages').appendChild(messageContainer);
-
-          document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-      }
-
-      async function addImageMessage(sender, prompt) {
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('message', sender);
-
-          const messageText = document.createElement('div');
-          messageText.classList.add('text');
-          messageText.innerHTML = `<strong>Gemini:</strong> Generando imagen...`;
-
-          messageContainer.appendChild(messageText);
-          document.getElementById('chat-messages').appendChild(messageContainer);
-
-          document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-
-          try {
-              const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateImage?key=${API_KEY}`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                      prompt: prompt,
-                      n: 1,
-                      size: "1024x1024"
-                  })
-              });
-              const result = await response.json();
-              const imageUrl = result.data[0].url;
-
-              messageText.innerHTML = `<strong>Gemini:</strong> <img src="${imageUrl}" alt="Generated Image" />`;
-
-              gsap.fromTo(messageText.querySelector('img'), { opacity: 0 }, { opacity: 1, duration: 1 });
-
-          } catch (error) {
-              console.error('Error al generar la imagen:', error);
-              messageText.innerHTML = `<strong>Gemini:</strong> Lo siento, ocurrió un error al generar la imagen.`;
-          }
-
-          messageText.addEventListener('contextmenu', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-
-          messageText.addEventListener('touchstart', (e) => {
-              e.preventDefault();
-              showContextMenu(e, messageText);
-          });
-      }
-
-      function typeEffect(sender, text) {
-          const messageContainer = document.createElement('div');
-          messageContainer.classList.add('message', sender);
-
-          const messageText = document.createElement('div');
-          messageText.classList.add('text');
-          messageText.innerHTML = sender === 'user' ? `<strong>Yo:</strong> ${text}` : `<strong>Gemini:</strong> `;
-
-          messageContainer.appendChild(messageText);
-          document.getElementById('chat-messages').appendChild(messageContainer);
-
-          let index = 0;
-
-          function type() {
-              if (index < text.length && !isStopped) {
-                  messageText.innerHTML += text.charAt(index);
-                  index++;
-                  setTimeout(type, typingSpeed);
-              }
-          }
-
-          type();
-          document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-      }
-
-      function toggleTheme() {
-          isDarkMode = !isDarkMode;
-          document.body.classList.toggle('dark-mode', isDarkMode);
-      }
-
-      function stopChat() {
-          isStopped = true;
-      }
-
-      function toggleMenu() {
-          const menu = document.getElementById('menu');
-          menu.classList.toggle('show');
-      }
-
-      function showContextMenu(event, messageText) {
-          const contextMenu = document.createElement('div');
-          contextMenu.classList.add('context-menu');
-          contextMenu.style.top = `${event.clientY}px`;
-          contextMenu.style.left = `${event.clientX}px`;
-
-          const pinOption = document.createElement('div');
-          pinOption.classList.add('context-menu-option');
-          pinOption.textContent = 'Fijar mensaje';
-          pinOption.addEventListener('click', () => {
-              pinnedMessage = messageText;
-              alert('Mensaje fijado');
-              document.body.removeChild(contextMenu);
-          });
-
-          const replyOption = document.createElement('div');
-          replyOption.classList.add('context-menu-option');
-          replyOption.textContent = 'Responder';
-          replyOption.addEventListener('click', () => {
-              replyingTo = messageText;
-              alert('Respondiendo al mensaje');
-              document.body.removeChild(contextMenu);
-          });
-
-          const copyOption = document.createElement('div');
-          copyOption.classList.add('context-menu-option');
-          copyOption.textContent = 'Copiar';
-          copyOption.addEventListener('click', () => {
-              const text = messageText.textContent;
-              navigator.clipboard.writeText(text).then(() => {
-                  alert('Mensaje copiado');
-              }).catch(err => {
-                  console.error('Error al copiar el mensaje:', err);
-              });
-              document.body.removeChild(contextMenu);
-          });
-
-          contextMenu.appendChild(pinOption);
-          contextMenu.appendChild(replyOption);
-          contextMenu.appendChild(copyOption);
-
-          document.body.appendChild(contextMenu);
-
-          document.addEventListener('click', () => {
-              if (document.body.contains(contextMenu)) {
-                  document.body.removeChild(contextMenu);
-              }
-          }, { once: true });
-      }
-
-      function isCodeRequest(text) {
-          const codeKeywords = ['html', 'javascript', 'css', 'python', 'java', 'c++', 'c#', 'ruby', 'php', 'sql'];
-          return codeKeywords.some(keyword => text.toLowerCase().includes(keyword));
-      }
-
-      function isImageRequest(text) {
-          const imageKeywords = ['dibuja', 'genera una imagen de', 'crea una imagen de'];
-          return imageKeywords.some(keyword => text.toLowerCase().includes(keyword));
-      }
-
-      function getCodeLanguage(text) {
-          if (text.toLowerCase().includes('html')) return 'html';
-          if (text.toLowerCase().includes('javascript')) return 'javascript';
-          if (text.toLowerCase().includes('css')) return 'css';
-          if (text.toLowerCase().includes('python')) return 'python';
-          if (text.toLowerCase().includes('java')) return 'java';
-          if (text.toLowerCase().includes('c++')) return 'cpp';
-          if (text.toLowerCase().includes('c#')) return 'csharp';
-          if (text.toLowerCase().includes('ruby')) return 'ruby';
-          if (text.toLowerCase().includes('php')) return 'php';
-          if (text.toLowerCase().includes('sql')) return 'sql';
-          return 'markup'; // Default language
-      }
-
-      function isSummaryRequest(text) {
-          return text.toLowerCase().includes('resumen');
-      }
-
-      startNewChat();
+        drawTerrain();
     </script>
 </body>
 </html>
