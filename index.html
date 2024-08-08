@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desarrollo de Motor Gráfico 3D en C++</title>
+    <!-- Importar fuente desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
@@ -20,6 +22,12 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        .author {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9em;
+            color: #ddd;
+            padding-top: 10px;
+        }
         main {
             padding: 20px;
             max-width: 1200px;
@@ -30,6 +38,40 @@
             margin: 0;
             padding-bottom: 10px;
             border-bottom: 2px solid #444;
+        }
+        .news-section {
+            margin-bottom: 40px;
+        }
+        .news-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .news-title {
+            font-size: 1.2em;
+            margin: 0 0 10px;
+        }
+        .news-summary {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .news-link {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .news-link:hover {
+            text-decoration: underline;
         }
         section {
             margin-bottom: 40px;
@@ -54,6 +96,15 @@
             border-radius: 4px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
             font-family: 'Courier New', Courier, monospace;
+        }
+        .code {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
         }
         .diagram-container {
             display: flex;
@@ -98,16 +149,6 @@
         .hidden {
             display: none;
         }
-        footer {
-            background-color: #444;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-        }
         .terrain-container {
             position: relative;
             width: 100%;
@@ -125,14 +166,55 @@
             background-color: #a2b9bc;
             border-radius: 8px;
         }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Desarrollo de Motor Gráfico 3D en C++</h1>
+        <p class="author">Página desarrollada por Sebastián Noguera</p>
     </header>
 
     <main>
+        <!-- Sección de Noticias -->
+        <section class="news-section">
+            <h2>Noticias Recientes</h2>
+            <div class="news-card">
+                <h3 class="news-title">Innovaciones en Motor de Renderizado</h3>
+                <p class="news-summary">Últimos avances en técnicas de renderizado para motores gráficos 3D. Explora cómo las nuevas tecnologías están mejorando el rendimiento y la calidad visual.</p>
+                <a href="https://www.ejemplo.com/noticia1" class="news-link" target="_blank">Leer más</a>
+            </div>
+            <div class="news-card">
+                <h3 class="news-title">Tendencias en Desarrollo de Juegos 3D</h3>
+                <p class="news-summary">Un vistazo a las tendencias emergentes en el desarrollo de juegos 3D y cómo están influyendo en el diseño y la programación de motores gráficos.</p>
+                <a href="https://www.ejemplo.com/noticia2" class="news-link" target="_blank">Leer más</a>
+            </div>
+            <div class="news-card">
+                <h3 class="news-title">Nuevas Técnicas en Ray Tracing</h3>
+                <p class="news-summary">Explora las últimas técnicas en ray tracing y su impacto en la generación de imágenes realistas en motores gráficos modernos.</p>
+                <a href="https://www.ejemplo.com/noticia3" class="news-link" target="_blank">Leer más</a>
+            </div>
+        </section>
+
         <section id="intro">
             <h2>Introducción</h2>
             <p>Este tutorial cubre los aspectos esenciales para construir un motor gráfico 3D desde cero usando C++. Cubriremos desde los fundamentos hasta los detalles más avanzados para construir tu propio motor gráfico 3D.</p>
@@ -150,75 +232,33 @@
         <section id="pasos">
             <h2>Pasos para Crear el Motor</h2>
             <ol>
-                <li><a href="#" onclick="toggleSection('configuracion')">Configuración del Entorno</a></li>
-                <div id="configuracion" class="hidden">
-                    <ul>
-                        <li>Instalar herramientas y dependencias.</li>
-                        <li>Configurar bibliotecas: OpenGL, GLFW, GLM, etc.</li>
-                    </ul>
-                </div>
-
-                <li><a href="#" onclick="toggleSection('arquitectura')">Diseño de la Arquitectura</a></li>
-                <div id="arquitectura" class="hidden">
-                    <ul>
-                        <li>Definir componentes principales: Renderer, Asset Loader, etc.</li>
-                        <li>Establecer la estructura del código y diseño modular.</li>
-                    </ul>
-                </div>
-
-                <li><a href="#" onclick="toggleSection('implementacion')">Implementación</a></li>
-                <div id="implementacion" class="hidden">
-                    <ul>
-                        <li>Desarrollar el núcleo del motor: Gestión de recursos, rendering pipeline.</li>
-                        <li>Implementar características adicionales: Física, IA, etc.</li>
-                    </ul>
-                </div>
-
-                <li><a href="#" onclick="toggleSection('optimizacion')">Optimización y Pruebas</a></li>
-                <div id="optimización" class="hidden">
-                    <ul>
-                        <li>Optimizar el rendimiento del motor.</li>
-                        <li>Añadir características avanzadas.</li>
-                    </ul>
-                </div>
+                <li><a href="#" onclick="toggleSection('fundamentos')">Fundamentos</a></li>
+                <li><a href="#" onclick="toggleSection('matematicas')">Matemáticas y Programación</a></li>
+                <li><a href="#" onclick="toggleSection('iluminacion')">Iluminación y Efectos</a></li>
+                <li><a href="#" onclick="toggleSection('terrain')">Generación de Terreno 3D</a></li>
             </ol>
         </section>
 
-        <section id="teoria">
-            <h2>Teoría y Matemáticas</h2>
-
-            <h3>Matemáticas 3D</h3>
-            <p>Las matemáticas 3D son fundamentales para el desarrollo de motores gráficos. A continuación, se describen algunos conceptos clave:</p>
-
-            <h4>Vectores</h4>
-            <p>Un vector en 3D se representa como <code>V = (x, y, z)</code>. Los vectores se utilizan para definir posiciones, direcciones y velocidades.</p>
+        <!-- Fundamentos -->
+        <section id="fundamentos" class="hidden">
+            <h2>Fundamentos del Motor Gráfico</h2>
+            <p>Antes de comenzar con la implementación, es importante entender los conceptos básicos detrás de un motor gráfico 3D. A continuación se presentan algunos fundamentos esenciales.</p>
             <div class="formula">
-                <p>Magnitud del Vector: <code>|V| = sqrt(x² + y² + z²)</code></p>
+                <p>Modelo de Espacio de Coordenadas: <br>
+                <code>M = [ m11 m12 m13 m14 <br>
+                         m21 m22 m23 m24 <br>
+                         m31 m32 m33 m34 <br>
+                         m41 m42 m43 m44 ]
+                </code></p>
             </div>
-
-            <h4>Matrices</h4>
-            <p>Las matrices se utilizan para transformar vectores y objetos en 3D. Una matriz de transformación 4x4 se usa para rotaciones, escalados y traslaciones.</p>
-            <div class="formula">
-                <p>Matriz 4x4: <br>
-                <code>
-                [ m11 m12 m13 m14 ] <br>
-                [ m21 m22 m23 m24 ] <br>
-                [ m31 m32 m33 m34 ] <br>
-                [ m41 m42 m43 m44 ]
-                </code>
-                </p>
-            </div>
-
             <h4>Transformaciones</h4>
-            <p>Las transformaciones permiten mover, rotar y escalar objetos en la escena.</p>
-            <ul>
-                <li>Transformación de Translación: <code>T(x, y, z)</code></li>
-                <li>Transformación de Rotación: <code>R(θ)</code> donde θ es el ángulo de rotación.</li>
-                <li>Transformación de Escalado: <code>S(sx, sy, sz)</code></li>
-            </ul>
-
-            <h4>Proyecciones</h4>
-            <p>Las proyecciones transforman las coordenadas 3D en coordenadas 2D para el renderizado en pantalla.</p>
+            <p>Las transformaciones permiten mover, rotar y escalar objetos en la escena 3D.</p>
+            <div class="formula">
+                <p>Transformación de un Vector: <br>
+                <code>V' = M * V</code></p>
+            </div>
+            <h4>Proyección</h4>
+            <p>La proyección convierte coordenadas 3D en 2D para el renderizado en pantalla.</p>
             <div class="formula">
                 <p>Proyección Perspectiva: <br>
                 <code>
@@ -226,177 +266,219 @@
                 y' = y / z
                 </code></p>
             </div>
-
             <h4>Interpolación</h4>
-            <p>La interpolación se usa para calcular valores entre puntos clave.</p>
+            <p>La interpolación calcula valores entre puntos clave, útil para animaciones y efectos.</p>
             <div class="formula">
                 <p>Interpolación Lineal: <br>
                 <code>P(t) = P1 + t * (P2 - P1)</code></p>
             </div>
-
             <h4>Texturización</h4>
-            <p>El mapeo de texturas es la técnica de aplicar una imagen (textura) a una superficie 3D para darle detalles.</p>
+            <p>El mapeo de texturas aplica una imagen a una superficie 3D.</p>
             <div class="formula">
                 <p>Coordenadas de Textura: <code>UV = (u, v)</code></p>
             </div>
-
             <h4>Sistemas de Ecuaciones Diferenciales</h4>
-            <p>Las ecuaciones diferenciales son útiles para simular comportamientos dinámicos, como la física de partículas.</p>
+            <p>Las ecuaciones diferenciales simulan comportamientos dinámicos.</p>
             <div class="formula">
                 <p>Ecuación Diferencial de Movimiento: <br>
                 <code>d²x/dt² = a(t)</code></p>
             </div>
-
             <h4>Técnicas de Optimización</h4>
-            <p>Las técnicas de optimización mejoran el rendimiento del motor gráfico.</p>
+            <p>Mejoran el rendimiento del motor gráfico.</p>
             <ul>
-                <li><strong>Culling:</strong> Elimina objetos no visibles para mejorar el rendimiento.</li>
-                <li><strong>LOD (Level of Detail):</strong> Usa modelos de detalle variable según la distancia de la cámara.</li>
-                <li><strong>Batching:</strong> Agrupa objetos para reducir el número de llamadas a la API gráfica.</li>
+                <li><strong>Culling:</strong> Elimina objetos no visibles.</li>
+                <li><strong>LOD (Level of Detail):</strong> Modelos de detalle variable.</li>
+                <li><strong>Batching:</strong> Agrupa objetos para reducir llamadas a la API gráfica.</li>
             </ul>
+            <h3>Más Fórmulas Matemáticas</h3>
+            <p>Adicionalmente, se incluyen otras fórmulas importantes:</p>
+            <div class="formula">
+                <p>Transformación de Cámara: <br>
+                <code>
+                M = T * R * S
+                </code></p>
+                <p><strong>Donde:</strong> <br>
+                T = Matriz de Traslación <br>
+                R = Matriz de Rotación <br>
+                S = Matriz de Escalado
+                </p>
+            </div>
+            <div class="formula">
+                <p>Fórmula de Proyección Ortográfica: <br>
+                <code>
+                x' = x <br>
+                y' = y <br>
+                z' = z
+                </code></p>
+            </div>
         </section>
 
-        <section id="iluminacion">
-            <h2>Iluminación y Efectos</h2>
-
-            <h3>Iluminación</h3>
-            <p>La iluminación en gráficos 3D simula cómo la luz interactúa con los objetos en una escena.</p>
-            <ul>
-                <li><strong>Modelo de Iluminación Phong:</strong> Incluye iluminación ambiente, difusa y especular.</li>
-                <li><strong>Iluminación de Lambert:</strong> Se basa en la ley del coseno para la luz difusa.</li>
-            </ul>
+        <!-- Matemáticas y Programación -->
+        <section id="matematicas" class="hidden">
+            <h2>Matemáticas y Programación</h2>
+            <h3>Álgebra Lineal</h3>
+            <p>El álgebra lineal es fundamental para el cálculo de transformaciones y proyecciones en gráficos 3D.</p>
             <div class="formula">
-                <p>Fórmula de Iluminación Phong: <br>
-                <code>I = I_a * K_a + I_d * K_d * max(0, N · L) + I_s * K_s * (R · V)^n</code></p>
+                <p>Matriz de Transformación: <br>
+                <code>M = [ m11 m12 m13 m14 <br>
+                         m21 m22 m23 m24 <br>
+                         m31 m32 m33 m34 <br>
+                         m41 m42 m43 m44 ]
+                </code></p>
             </div>
-
-            <h3>Ray Tracing</h3>
-            <p>El ray tracing simula la propagación de la luz en una escena para generar imágenes con alta calidad y realismo.</p>
-            <ul>
-                <li><strong>Rastreo de Rayos:</strong> Calcula los rayos desde la cámara y su interacción con los objetos de la escena.</li>
-                <li><strong>Reflexión:</strong> Maneja cómo los rayos rebotan en superficies.</li>
-                <li><strong>Refracción:</strong> Maneja cómo los rayos se doblan al pasar a través de materiales.</li>
-                <li><strong>Iluminación Global:</strong> Simula la difusión de la luz en toda la escena.</li>
-            </ul>
+            <h3>Transformaciones</h3>
+            <p>Las transformaciones permiten mover, rotar y escalar objetos en la escena 3D.</p>
             <div class="formula">
-                <p>Fórmula básica para el ray tracing: <br>
-                <code>R(t) = O + t * D</code></p>
+                <p>Transformación de un Vector: <br>
+                <code>V' = M * V</code></p>
             </div>
-
-            <h3>Post-Procesamiento</h3>
-            <p>El post-procesamiento aplica efectos visuales adicionales después del renderizado inicial para mejorar la calidad visual.</p>
-            <ul>
-                <li><strong>Bloom:</strong> Simula el resplandor de áreas brillantes.</li>
-                <li><strong>Antialiasing:</strong> Suaviza bordes dentados mediante técnicas como MSAA (Multisample Anti-Aliasing).</li>
-            </ul>
+            <h3>Proyección</h3>
+            <p>La proyección convierte coordenadas 3D en 2D para el renderizado en pantalla.</p>
             <div class="formula">
-                <p>Fórmula básica de Bloom: <br>
-                <code>Bloom = (Blurred Bright Areas - Threshold) * Bloom Intensity</code></p>
+                <p>Proyección Perspectiva: <br>
+                <code>
+                x' = x / z <br>
+                y' = y / z
+                </code></p>
             </div>
-
-            <h3>Animaciones</h3>
-            <p>Las animaciones en gráficos 3D pueden ser complejas y se basan en la interpolación de estados clave.</p>
-            <ul>
-                <li><strong>Interpolación de Movimiento:</strong> Calcula la transición suave entre posiciones clave.</li>
-                <li><strong>Esqueletos:</strong> Utiliza huesos y rigging para animar modelos 3D.</li>
-            </ul>
+            <h3>Interpolación</h3>
+            <p>La interpolación calcula valores entre puntos clave, útil para animaciones y efectos.</p>
             <div class="formula">
                 <p>Interpolación Lineal: <br>
                 <code>P(t) = P1 + t * (P2 - P1)</code></p>
             </div>
-
-            <h3>Sombras y Sombras Dinámicas</h3>
-            <p>Las sombras mejoran la percepción de profundidad en una escena. Las sombras pueden ser:</p>
-            <ul>
-                <li><strong>Sombras Estáticas:</strong> Precalculadas y proyectadas desde luces fijas.</li>
-                <li><strong>Sombras Dinámicas:</strong> Calculadas en tiempo real, lo que permite que se actualicen en respuesta a los movimientos de objetos y luces.</li>
-            </ul>
+            <h3>Texturización</h3>
+            <p>El mapeo de texturas aplica una imagen a una superficie 3D.</p>
             <div class="formula">
-                <p>Fórmula básica para sombras proyectadas: <br>
-                <code>S = P - L</code></p>
+                <p>Coordenadas de Textura: <code>UV = (u, v)</code></p>
+            </div>
+            <h3>Sistemas de Ecuaciones Diferenciales</h3>
+            <p>Las ecuaciones diferenciales simulan comportamientos dinámicos.</p>
+            <div class="formula">
+                <p>Ecuación Diferencial de Movimiento: <br>
+                <code>d²x/dt² = a(t)</code></p>
+            </div>
+            <h3>Técnicas de Optimización</h3>
+            <p>Mejoran el rendimiento del motor gráfico.</p>
+            <ul>
+                <li><strong>Culling:</strong> Elimina objetos no visibles.</li>
+                <li><strong>LOD (Level of Detail):</strong> Modelos de detalle variable.</li>
+                <li><strong>Batching:</strong> Agrupa objetos para reducir llamadas a la API gráfica.</li>
+            </ul>
+            <h3>Más Fórmulas Matemáticas</h3>
+            <p>Adicionalmente, se incluyen otras fórmulas importantes:</p>
+            <div class="formula">
+                <p>Transformación de Cámara: <br>
+                <code>
+                M = T * R * S
+                </code></p>
+                <p><strong>Donde:</strong> <br>
+                T = Matriz de Traslación <br>
+                R = Matriz de Rotación <br>
+                S = Matriz de Escalado
+                </p>
+            </div>
+            <div class="formula">
+                <p>Fórmula de Proyección Ortográfica: <br>
+                <code>
+                x' = x <br>
+                y' = y <br>
+                z' = z
+                </code></p>
             </div>
         </section>
 
-        <section id="terrain">
+        <!-- Iluminación y Efectos -->
+        <section id="iluminacion" class="hidden">
+            <h2>Iluminación y Efectos</h2>
+            <h3>Iluminación</h3>
+            <p>Simula cómo la luz interactúa con los objetos en una escena.</p>
+            <ul>
+                <li><strong>Modelo de Iluminación Phong:</strong> Incluye iluminación ambiente, difusa y especular.</li>
+                <li><strong>Iluminación de Lambert:</strong> Basado en la ley del coseno para la luz difusa.</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula de Iluminación Phong: <br>
+                <code>
+                I = I_a * K_a + I_d * K_d * max(0, N · L) + I_s * K_s * (R · V)^n
+                </code></p>
+            </div>
+            <h3>Ray Tracing</h3>
+            <p>Simula la propagación de la luz en una escena para generar imágenes de alta calidad.</p>
+            <ul>
+                <li><strong>Rastreo de Rayos:</strong> Calcula los rayos desde la cámara y su interacción con los objetos.</li>
+                <li><strong>Sombras y Reflexiones:</strong> Incluye cálculos para sombras y reflexiones basadas en el rastro de rayos.</li>
+            </ul>
+            <div class="formula">
+                <p>Fórmula de Ray Tracing: <br>
+                <code>
+                I = ∫ (L * (N · H)) * dA
+                </code></p>
+            </div>
+            <h3>Efectos Postprocesado</h3>
+            <p>Aplican efectos adicionales después del renderizado inicial.</p>
+            <ul>
+                <li><strong>Bloom:</strong> Simula el resplandor de luces brillantes.</li>
+                <li><strong>Desenfoque:</strong> Aplica un desenfoque para efectos de profundidad de campo.</li>
+            </ul>
+            <h3>Sombreados y Antialiasing</h3>
+            <p>Mejora la calidad visual de las sombras y reduce el aliasing.</p>
+            <ul>
+                <li><strong>Sombreados Dinámicos:</strong> Calcula sombras que cambian con la posición de la luz y los objetos.</li>
+                <li><strong>Antialiasing:</strong> Reduce el efecto de escalonamiento en los bordes de los objetos.</li>
+            </ul>
+            <div class="formula">
+                <p>Antialiasing: <br>
+                <code>
+                AA = 1 / (1 + (σ^2 / N))
+                </code></p>
+            </div>
+        </section>
+
+        <!-- Generación de Terreno 3D -->
+        <section id="terrain" class="hidden">
             <h2>Generación de Terreno 3D</h2>
             <div class="terrain-container">
                 <canvas id="terrainCanvas" class="terrain"></canvas>
             </div>
-
-            <h3>Generación de Terreno</h3>
-            <p>La generación de terrenos en 3D involucra varios pasos clave:</p>
-
-            <h4>1. Creación de la Malla del Terreno</h4>
-            <p>La malla del terreno se genera mediante la creación de una cuadrícula de vértices.</p>
-            <div class="formula">
-                <p>Coordenadas de Vértices: <br>
-                <code>(x, y, z)</code></p>
-            </div>
-
-            <h4>2. Aplicación de Texturas</h4>
-            <p>Una textura se aplica a la malla del terreno utilizando coordenadas UV.</p>
-            <div class="formula">
-                <p>Coordenadas UV: <br>
-                <code>UV = (u, v)</code></p>
-            </div>
-
-            <h4>3. Movimiento con el Ratón</h4>
-            <p>El terreno se puede mover mediante el ratón.</p>
-            <div class="formula">
-                <p>Movimiento de la Cámara: <br>
-                <code>CameraPosition = CameraPosition + MouseDelta</code></p>
-            </div>
-
+            <p>La generación de terrenos en 3D implica crear una malla de vértices y aplicar texturas para simular un terreno realista.</p>
             <h3>Explicación Detallada</h3>
-            <p>Para generar un terreno en 3D, se utilizan los siguientes pasos:</p>
-            <ul>
-                <li><strong>Generación de la Malla:</strong> Crear una malla de vértices y aplicar una función de ruido.</li>
-                <li><strong>Aplicación de Textura:</strong> Utilizar coordenadas UV para mapear la textura sobre la malla.</li>
-                <li><strong>Interactividad:</strong> Permitir la navegación mediante entrada del ratón o teclado.</li>
-            </ul>
-
-            <h3>Diagrama de Generación de Terreno</h3>
+            <p>El proceso general para generar un terreno 3D en un motor gráfico incluye los siguientes pasos:</p>
+            <ol>
+                <li><strong>Creación de la Malla:</strong> Definir la geometría del terreno mediante una cuadrícula de vértices.</li>
+                <li><strong>Aplicación de Textura:</strong> Mapear una textura sobre la malla para simular la superficie del terreno.</li>
+                <li><strong>Interactividad:</strong> Implementar la capacidad de interactuar con el terreno, como mover la vista con el mouse.</li>
+            </ol>
+            <h3>Diagrama de Flujo</h3>
             <div class="diagram-container">
                 <div class="diagram">
-                    <div class="box box-top">Generación de Terreno</div>
+                    <div class="box">Generación de Malla</div>
                     <div class="arrow arrow-down"></div>
-                    <div class="box box-left">Creación de Malla</div>
+                    <div class="box">Aplicación de Textura</div>
                     <div class="arrow arrow-down"></div>
-                    <div class="box box-left">Aplicación de Textura</div>
-                    <div class="arrow arrow-down"></div>
-                    <div class="box box-left">Interactividad con el Ratón</div>
+                    <div class="box">Interactividad</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Desarrollo de Motor Gráfico 3D en C++. Todos los derechos reservados.</p>
-    </footer>
-
     <script>
         function toggleSection(id) {
-            var section = document.getElementById(id);
-            if (section.classList.contains('hidden')) {
-                section.classList.remove('hidden');
-            } else {
-                section.classList.add('hidden');
-            }
+            const section = document.getElementById(id);
+            section.classList.toggle('hidden');
         }
 
-        // Terrain canvas example (basic setup)
         const canvas = document.getElementById('terrainCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
 
-        // Simple example to draw a grid as terrain
+        canvas.width = window.innerWidth;
+        canvas.height = 400;
+
         function drawTerrain() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = '#6c8e1e'; // Grass green
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Example grid
             ctx.strokeStyle = '#333';
             for (let x = 0; x < canvas.width; x += 20) {
                 for (let y = 0; y < canvas.height; y += 20) {
